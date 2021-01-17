@@ -72,7 +72,6 @@ class VacanteController extends Controller
             'experiencia'=>'required',
             'salarios'=>'required',
             'descripcion'=>'required',
-            'imagen'=>'required',
             'habilidades'=>'required'
 
         ]);
@@ -80,7 +79,7 @@ class VacanteController extends Controller
         auth()->user()->vacantes()->create([
             'titulo'=>$data['titulo'],
             'descripcion'=>$data['descripcion'],
-            'imagen'=>$data['imagen'],
+            'imagen'=>"No Hay",
             'ubicacion_id'=>$data['ubicacion'],
             'categoria_id'=>$data['categoria'],
             'experiencia_id'=>$data['experiencia'],
@@ -161,7 +160,6 @@ class VacanteController extends Controller
             'experiencia'=>'required',
             'salarios'=>'required',
             'descripcion'=>'required',
-            'imagen'=>'required',
             'habilidades'=>'required'
 
         ]);
@@ -169,7 +167,7 @@ class VacanteController extends Controller
 
         $vacante->titulo = $data['titulo'];
         $vacante->habilidades_id = $data['habilidades'];
-        $vacante->imagen = $data['imagen'];
+        $vacante->imagen = "No Hay";
         $vacante->descripcion = $data['descripcion'];
         $vacante->categoria_id = $data['categoria'];
         $vacante->experiencia_id = $data['experiencia'];

@@ -209,12 +209,7 @@
         </div>
 
 
-        <div class="mb-5">
-            <label class="block mr-2 text-gray-700 text-sm mb-0 col-form-label text-md-left" for="descripcion">Imagen Vacante:</label>
 
-            <div  id="dropzoneDevJobs"  class="dropzone rounded bg-gray-100" ></div>
-            <input type="hidden" value="{{old('imagen')}}" name="imagen" id="imagen">
-        </div>
 
 
 
@@ -262,58 +257,58 @@
             editor.setContent(document.querySelector('#descripcion').value);
 
             //dropzone
-            const dropzoneDevJobs = new Dropzone('#dropzoneDevJobs',{
-                //COnfiguraciones basicas la url es donde enviaremos la peticion cuando salga con exito
-                url:"/vacantes/imagen",
-                dictDefaultMessage:'Sube aquí tu archivo',
-                acceptedFiles:".png,.jpg,jpeg",
-                addRemoveLinks:true,
-                dictRemoveFile:'Borrar Archivo',
-                maxFiles:1,
-                headers:{
-                    'X-CSRF-TOKEN':token
-                },
-                init:function(){
-                    if(document.querySelector('#imagen').value.trim()){
-                        let imagenPublicada = {};
-                        imagenPublicada.size =1234;
-                        imagenPublicada.name = document.querySelector('#imagen').value;
-                        this.options.addedfile.call(this, imagenPublicada);
-                        this.options.thumbnail.call(this, imagenPublicada,`/storage/vacantes/${imagenPublicada.name}`);
-                        imagenPublicada.previewElement.classList.add('dz-sucess');
-                        imagenPublicada.previewElement.classList.add('dz-complete');
-                    }
+            // const dropzoneDevJobs = new Dropzone('#dropzoneDevJobs',{
+            //     //COnfiguraciones basicas la url es donde enviaremos la peticion cuando salga con exito
+            //     url:"/vacantes/imagen",
+            //     dictDefaultMessage:'Sube aquí tu archivo',
+            //     acceptedFiles:".png,.jpg,jpeg",
+            //     addRemoveLinks:true,
+            //     dictRemoveFile:'Borrar Archivo',
+            //     maxFiles:1,
+            //     headers:{
+            //         'X-CSRF-TOKEN':token
+            //     },
+            //     init:function(){
+            //         if(document.querySelector('#imagen').value.trim()){
+            //             let imagenPublicada = {};
+            //             imagenPublicada.size =1234;
+            //             imagenPublicada.name = document.querySelector('#imagen').value;
+            //             this.options.addedfile.call(this, imagenPublicada);
+            //             this.options.thumbnail.call(this, imagenPublicada,`/storage/vacantes/${imagenPublicada.name}`);
+            //             imagenPublicada.previewElement.classList.add('dz-sucess');
+            //             imagenPublicada.previewElement.classList.add('dz-complete');
+            //         }
 
-                },
-                //si sale bien la peticion cuando arrastramos un archivo
-                success: function(file,response){
-                    console.log(response);
-                    //le asignamos la imagen al input oculto
-                    document.querySelector('#imagen').value=response.correcto;
-                    //agregamos el nombre del servidor a unestra imagen que venga en file
-                    file.nombreServidor = response.correcto;
-                },
-                //funcion para eliminar mas de 1 archivo y añadir el nuevo
-                maxfilesexceeded:function(file){
-                    if(this.files[1]!=null){
-                        this.removeFile(this.files[0]);
-                        this.addFile(file);
-                    }
-                },
-                //reniver los archivos de la base de datos
-                removedfile:function(file,response){
-                    file.previewElement.parentNode.removeChild(file.previewElement);
+            //     },
+            //     //si sale bien la peticion cuando arrastramos un archivo
+            //     success: function(file,response){
+            //         console.log(response);
+            //         //le asignamos la imagen al input oculto
+            //         document.querySelector('#imagen').value=response.correcto;
+            //         //agregamos el nombre del servidor a unestra imagen que venga en file
+            //         file.nombreServidor = response.correcto;
+            //     },
+            //     //funcion para eliminar mas de 1 archivo y añadir el nuevo
+            //     maxfilesexceeded:function(file){
+            //         if(this.files[1]!=null){
+            //             this.removeFile(this.files[0]);
+            //             this.addFile(file);
+            //         }
+            //     },
+            //     //reniver los archivos de la base de datos
+            //     removedfile:function(file,response){
+            //         file.previewElement.parentNode.removeChild(file.previewElement);
 
-                    //creamos un params para mandar al axios
-                    params = {
-                        imagen:file.nombreServidor ?? document.querySelector('#imagen').value
-                    }
-                    //enviamos la peticion
-                    axios.post('/vacantes/borrarimagen',params)
-                        .then(respuesta=>console.log('sadasd'+respuesta))
-                }
+            //         //creamos un params para mandar al axios
+            //         params = {
+            //             imagen:file.nombreServidor ?? document.querySelector('#imagen').value
+            //         }
+            //         //enviamos la peticion
+            //         axios.post('/vacantes/borrarimagen',params)
+            //             .then(respuesta=>console.log('sadasd'+respuesta))
+            //     }
 
-            });
+            // });
 
 
         });

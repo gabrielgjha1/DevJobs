@@ -38,8 +38,6 @@
                     <span class="font-normal" >{{$item}}</span>
                 </p>
                 @endforeach
-
-            <img src="/storage/vacantes/{{$vacante->imagen}}" class=" w-120 h-120 mt-3 " alt="">
             <h2 class="mt-5" >Descripcion del empleo</h2>
             <div class="descripcion mt-10 mb-5" >
                 {!!  $vacante->descripcion  !!}
